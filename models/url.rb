@@ -16,7 +16,9 @@ class Url
       'SELECT original_url FROM shortened_urls WHERE shortener_code = ?',
       [code]
     )
-    row ? new(row['original_url'], code) : nil
+    return nil unless row
+
+    new(row['original_url'], code)
   end
 
   def self.create(url, code)

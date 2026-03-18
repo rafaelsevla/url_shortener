@@ -5,7 +5,9 @@ require 'sqlite3'
 # Manages the connection and initial structure of the SQLite database.
 class Database
   def self.connection
-    @connection ||= SQLite3::Database.new('url_shortener.db').tap do |db|
+    db_name = ENV['APP_ENV'] == 'test' ? 'url_shortener_test.db' : 'url_shortener.db'
+
+    @connection ||= SQLite3::Database.new(db_name).tap do |db|
       db.results_as_hash = true
     end
   end

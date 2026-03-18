@@ -9,7 +9,7 @@ Database.setup
 get '/api/shorted/:code' do
   result = Url.find_by(params['code'])
   if result
-    redirect result
+    redirect result.original_url
   else
     halt 404, 'Página não encontrada ou link expirado.'
   end
