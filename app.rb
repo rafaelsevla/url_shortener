@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require_relative 'lib/database'
+require_relative 'models/url'
 require 'sinatra'
 
 Database.setup
 
 get '/api/shorted/:code' do
-  result = Database.find_url_by_code(params['code'])
+  result = Url.find_by(params['code'])
   if result
     redirect result
   else
@@ -22,7 +23,7 @@ post '/api/short' do
   halt 400, { error: 'Url inválida' }.to_json if data_url.nil? || data_url.empty?
 
   code = random_string
-  success = Database.create(data_url, code)
+  success = Url.create(data_url, code)
 
   halt 422, { error: 'Esta URL já foi encurtada ou o código falhou' }.to_json unless success
 

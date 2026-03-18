@@ -25,29 +25,4 @@ class Database
       );
     SQL
   end
-
-  def self.create(original_url, shortener_code)
-    connection.execute(
-      'INSERT INTO urls_shortened (original_url, shortener_code) VALUES (?, ?)',
-      [original_url, shortener_code]
-    )
-    true
-  rescue SQLite3::ConstraintException => e
-    puts "Erro: URL ou Código já existem no banco! #{e.message}"
-    false
-  rescue SQLite3::Exception => e
-    puts "Erro ao inserir: #{e.message}"
-    false
-  end
-
-  def self.find_url_by_code(shortener_code)
-    result = connection.get_first_row(
-      'SELECT original_url FROM urls_shortened WHERE shortener_code = ?',
-      [shortener_code]
-    )
-    result['original_url']
-  rescue SQLite3::Exception => e
-    warn "Erro ao buscar: #{e.message}"
-    nil
-  end
 end
