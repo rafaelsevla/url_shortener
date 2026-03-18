@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+ruby '4.0.1'
+
 group :development, :test do
   gem 'rack-test', '~> 2.2'
   gem 'rspec', '~> 3.13'
