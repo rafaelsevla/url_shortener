@@ -18,7 +18,7 @@ class Database
 
   def self.create_table_sql
     <<-SQL
-      CREATE TABLE IF NOT EXISTS urls_shortened (
+      CREATE TABLE IF NOT EXISTS shortened_urls (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         original_url TEXT NOT NULL,
         shortener_code TEXT NOT NULL UNIQUE

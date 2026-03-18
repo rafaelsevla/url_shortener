@@ -13,7 +13,7 @@ class Url
 
   def self.find_by(code)
     row = Database.connection.get_first_row(
-      'SELECT original_url FROM urls_shortened WHERE shortener_code = ?',
+      'SELECT original_url FROM shortened_urls WHERE shortener_code = ?',
       [code]
     )
     row ? new(row['original_url'], code) : nil
@@ -21,7 +21,7 @@ class Url
 
   def self.create(url, code)
     Database.connection.execute(
-      'INSERT INTO urls_shortened (original_url, shortener_code) VALUES (?, ?)',
+      'INSERT INTO shortened_urls (original_url, shortener_code) VALUES (?, ?)',
       [url, code]
     )
     new(url, code)
